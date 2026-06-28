@@ -2,7 +2,7 @@ namespace LibraryManagementAPI.Book.Repository.InMemory;
 
 public class InMemoryBookRepository : IBookRepository
 {
-    private readonly List<Models.Book> _books;
+    private readonly List<Models.Book> _books = new();
     
     public Task<Models.Book> SaveAsync(Models.Book entity)
     {

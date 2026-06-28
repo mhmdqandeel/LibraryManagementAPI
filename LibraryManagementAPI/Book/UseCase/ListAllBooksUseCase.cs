@@ -17,6 +17,11 @@ public class ListAllBooksUseCase : ISupplierUseCase<List<BookDto>>
     {
         var books = await _bookRepository.FindAllAsync();
 
+        if (books is null)
+        {
+            throw new Exception("No books found");
+        }
+
         return books
             .Select(book => new BookDto(
                 book.Title,
