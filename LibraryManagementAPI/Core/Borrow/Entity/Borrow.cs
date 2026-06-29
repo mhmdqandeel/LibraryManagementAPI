@@ -9,7 +9,7 @@ public class Borrow : BaseEntity
     public DateTime ReturnDate { get; private set; }
     public bool IsReturned { get; private set; }
     
-    protected Borrow(Guid bookId, Guid memberId, DateTime returnDate)
+    public Borrow(Guid bookId, Guid memberId, DateTime returnDate)
     {
         BookId = bookId;
         MemberId = memberId;
@@ -17,7 +17,7 @@ public class Borrow : BaseEntity
         IsReturned = false;
     }
     
-    protected Borrow()
+    public Borrow()
     {
     }
 }

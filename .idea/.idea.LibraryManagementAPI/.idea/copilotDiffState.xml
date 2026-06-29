@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CopilotDiffPersistence">
+    <option name="pendingDiffs">
+      <map>
+        <entry key="$PROJECT_DIR$/LibraryManagementAPI.Tests/GlobalUsings.cs">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/LibraryManagementAPI.Tests/GlobalUsings.cs" />
+              <option name="originalContent" value="global using Xunit;" />
+              <option name="updatedContent" value="global using Xunit;&#10;global using FluentAssertions;" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

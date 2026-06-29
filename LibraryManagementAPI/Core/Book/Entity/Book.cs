@@ -15,7 +15,7 @@ public class Book : BaseEntity
         Author = author;
         IsAvailable = true;
     }
-    protected Book()
+    public Book()
     {
     }
 }
