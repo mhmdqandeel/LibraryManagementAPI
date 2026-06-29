@@ -148,11 +148,11 @@ public class InMemoryBorrowRepositoryTests
 
     /// <summary>
     /// Helper method to create a test Borrow with the given parameters.
-    /// Uses reflection to set the private properties since Borrow has private setters.
+    /// Uses reflection to invoke the protected constructor and set private properties.
     /// </summary>
     private static BorrowModel CreateTestBorrow(Guid id, Guid bookId, Guid memberId, DateTime returnDate, bool isReturned)
     {
-        var borrow = new BorrowModel();
+        var borrow = (BorrowModel)Activator.CreateInstance(typeof(BorrowModel), nonPublic: true)!;
 
         typeof(BaseEntity).GetProperty("Id")?.SetValue(borrow, id);
         typeof(BaseEntity).GetProperty("CreatedAt")?.SetValue(borrow, DateTime.UtcNow);

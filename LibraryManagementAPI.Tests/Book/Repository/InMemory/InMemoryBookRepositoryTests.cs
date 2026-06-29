@@ -1,3 +1,4 @@
+using FluentAssertions;
 using LibraryManagementAPI.Book.Repository.InMemory;
 using LibraryManagementAPI.Shared;
 using BookModel = LibraryManagementAPI.Models.Book;
@@ -18,36 +19,49 @@ public class InMemoryBookRepositoryTests
     {
         // Arrange
         var bookId = Guid.NewGuid();
-        var originalBook = CreateTestBook(id: bookId, title: "Original Title", author: "Original Author");
+
+        var originalBook = CreateTestBook(
+            id: bookId,
+            title: "Clean Code",
+            author: "Robert C. Martin",
+            isAvailable: true);
+
         await _repository.SaveAsync(originalBook);
 
-        var updatedBook = CreateTestBook(id: bookId, title: "Updated Title", author: "Updated Author");
+        var updatedBook = CreateTestBook(
+            id: bookId,
+            title: "Clean Architecture",
+            author: "Robert C. Martin",
+            isAvailable: false);
 
         // Act
         var result = await _repository.SaveAsync(updatedBook);
 
         // Assert
-        result.Title.Should().Be("Updated Title");
-        result.Author.Should().Be("Updated Author");
-        result.Id.Should().Be(bookId.ToString());
+        result.Id.Should().Be(bookId);
+        result.Title.Should().Be(updatedBook.Title);
+        result.Author.Should().Be(updatedBook.Author);
+        result.IsAvailable.Should().BeFalse();
     }
 
     [Fact]
     public async Task GivenRepositoryWithMultipleBooks_WhenSavingAnotherBook_ThenAllBooksArePersisted()
     {
         // Arrange
-        var book1 = CreateTestBook(id: Guid.NewGuid(), title: "Book 1", author: "Author 1");
-        var book2 = CreateTestBook(id: Guid.NewGuid(), title: "Book 2", author: "Author 2");
-        var book3 = CreateTestBook(id: Guid.NewGuid(), title: "Book 3", author: "Author 3");
+        var book1 = CreateTestBook(Guid.NewGuid(), "Book 1", "Author 1", true);
+        var book2 = CreateTestBook(Guid.NewGuid(), "Book 2", "Author 2", false);
 
         await _repository.SaveAsync(book1);
         await _repository.SaveAsync(book2);
+
+        var book3 = CreateTestBook(Guid.NewGuid(), "Book 3", "Author 3", true);
 
         // Act
         await _repository.SaveAsync(book3);
 
         // Assert
         var allBooks = await _repository.FindAllAsync();
+
         allBooks.Should().HaveCount(3);
         allBooks.Should().Contain(b => b.Id == book1.Id);
         allBooks.Should().Contain(b => b.Id == book2.Id);
@@ -59,7 +73,13 @@ public class InMemoryBookRepositoryTests
     {
         // Arrange
         var bookId = Guid.NewGuid();
-        var book = CreateTestBook(id: bookId, title: "Test Book", author: "Test Author");
+
+        var book = CreateTestBook(
+            bookId,
+            "Domain-Driven Design",
+            "Eric Evans",
+            true);
+
         await _repository.SaveAsync(book);
 
         // Act
@@ -67,17 +87,19 @@ public class InMemoryBookRepositoryTests
 
         // Assert
         foundBook.Should().NotBeNull();
-        foundBook.Id.Should().Be(bookId.ToString());
-        foundBook.Title.Should().Be("Test Book");
-        foundBook.Author.Should().Be("Test Author");
+        foundBook!.Id.Should().Be(bookId);
+        foundBook.Title.Should().Be(book.Title);
+        foundBook.Author.Should().Be(book.Author);
+        foundBook.IsAvailable.Should().BeTrue();
     }
 
     [Fact]
     public async Task GivenRepositoryWithBooks_WhenFindingByNonExistentId_ThenNullIsReturned()
     {
         // Arrange
-        var book = CreateTestBook(id: Guid.NewGuid(), title: "Existing Book", author: "Test Author");
+        var book = CreateTestBook(Guid.NewGuid(), "Book", "Author", true);
         await _repository.SaveAsync(book);
+
         var nonExistentId = Guid.NewGuid();
 
         // Act
@@ -91,9 +113,9 @@ public class InMemoryBookRepositoryTests
     public async Task GivenRepositoryWithMultipleBooks_WhenFindingAll_ThenAllBooksAreReturned()
     {
         // Arrange
-        var book1 = CreateTestBook(id: Guid.NewGuid(), title: "Book 1", author: "Author 1");
-        var book2 = CreateTestBook(id: Guid.NewGuid(), title: "Book 2", author: "Author 2");
-        var book3 = CreateTestBook(id: Guid.NewGuid(), title: "Book 3", author: "Author 3");
+        var book1 = CreateTestBook(Guid.NewGuid(), "Book 1", "Author 1", true);
+        var book2 = CreateTestBook(Guid.NewGuid(), "Book 2", "Author 2", false);
+        var book3 = CreateTestBook(Guid.NewGuid(), "Book 3", "Author 3", true);
 
         await _repository.SaveAsync(book1);
         await _repository.SaveAsync(book2);
@@ -104,9 +126,9 @@ public class InMemoryBookRepositoryTests
 
         // Assert
         allBooks.Should().HaveCount(3);
-        allBooks.Should().Contain(b => b.Title == "Book 1");
-        allBooks.Should().Contain(b => b.Title == "Book 2");
-        allBooks.Should().Contain(b => b.Title == "Book 3");
+        allBooks.Should().Contain(b => b.Title == book1.Title);
+        allBooks.Should().Contain(b => b.Title == book2.Title);
+        allBooks.Should().Contain(b => b.Title == book3.Title);
     }
 
     [Fact]
@@ -114,10 +136,20 @@ public class InMemoryBookRepositoryTests
     {
         // Arrange
         var bookId = Guid.NewGuid();
-        var originalBook = CreateTestBook(id: bookId, title: "Original", author: "Original Author");
+
+        var originalBook = CreateTestBook(
+            bookId,
+            "Old Title",
+            "Old Author",
+            true);
+
         await _repository.SaveAsync(originalBook);
 
-        var updatedBook = CreateTestBook(id: bookId, title: "Updated", author: "Updated Author");
+        var updatedBook = CreateTestBook(
+            bookId,
+            "New Title",
+            "New Author",
+            false);
 
         // Act
         await _repository.SaveAsync(updatedBook);
@@ -125,23 +157,28 @@ public class InMemoryBookRepositoryTests
 
         // Assert
         allBooks.Should().HaveCount(1);
-        allBooks[0].Title.Should().Be("Updated");
-        allBooks[0].Author.Should().Be("Updated Author");
+
+        allBooks[0].Id.Should().Be(bookId);
+        allBooks[0].Title.Should().Be(updatedBook.Title);
+        allBooks[0].Author.Should().Be(updatedBook.Author);
+        allBooks[0].IsAvailable.Should().BeFalse();
     }
 
     /// <summary>
     /// Helper method to create a test Book with the given parameters.
-    /// Uses reflection to set the private properties since Book has private setters.
+    /// Uses reflection to invoke the protected constructor and set private properties.
     /// </summary>
-    private static BookModel CreateTestBook(Guid id, string title, string author, bool isAvailable = true)
+    private static BookModel CreateTestBook(
+        Guid id,
+        string title,
+        string author,
+        bool isAvailable)
     {
-        var book = new BookModel();
+        var book = (BookModel)Activator.CreateInstance(typeof(BookModel), nonPublic: true)!;
 
-        // Set Id using reflection
         typeof(BaseEntity).GetProperty("Id")?.SetValue(book, id);
         typeof(BaseEntity).GetProperty("CreatedAt")?.SetValue(book, DateTime.UtcNow);
 
-        // Set Book properties using reflection
         typeof(BookModel).GetProperty("Title")?.SetValue(book, title);
         typeof(BookModel).GetProperty("Author")?.SetValue(book, author);
         typeof(BookModel).GetProperty("IsAvailable")?.SetValue(book, isAvailable);

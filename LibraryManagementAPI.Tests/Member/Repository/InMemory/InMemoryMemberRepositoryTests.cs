@@ -134,17 +134,15 @@ public class InMemoryMemberRepositoryTests
 
     /// <summary>
     /// Helper method to create a test Member with the given parameters.
-    /// Uses reflection to set the private properties since Member has private setters.
+    /// Uses reflection to invoke the protected constructor and set private properties.
     /// </summary>
     private static MemberModel CreateTestMember(Guid id, string name, string email, int borrowLimit)
     {
-        var member = new MemberModel();
+        var member = (MemberModel)Activator.CreateInstance(typeof(MemberModel), nonPublic: true)!;
 
-        // Set Id using reflection
         typeof(BaseEntity).GetProperty("Id")?.SetValue(member, id);
         typeof(BaseEntity).GetProperty("CreatedAt")?.SetValue(member, DateTime.UtcNow);
 
-        // Set Member properties using reflection
         typeof(MemberModel).GetProperty("Name")?.SetValue(member, name);
         typeof(MemberModel).GetProperty("Email")?.SetValue(member, email);
         typeof(MemberModel).GetProperty("BorrowLimit")?.SetValue(member, borrowLimit);
