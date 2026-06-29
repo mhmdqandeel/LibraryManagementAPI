@@ -17,6 +17,6 @@ public class FindBookByIdUseCase : IFunctionalUseCase<Guid, BookDto>
     {
         var book = await _bookRepository.FindAsync(request);
         
-        return book is null ? throw new Exception("Book not found") : new BookDto(book.Title, book.Author, book.IsAvailable);
+        return book is null ? throw new Exception("Book not found") : new BookDto(book.Id,book.Title, book.Author, book.IsAvailable);
     }
 }

@@ -9,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSingleton<IBookRepository, InMemoryBookRepository>();
 
 builder.Services.AddScoped<ISupplierUseCase<List<BookDto>>, ListAllBooksUseCase>();
+builder.Services.AddScoped<IFunctionalUseCase<Guid, BookDto>, FindBookByIdUseCase>();
 
 builder.Services.AddControllers();
 

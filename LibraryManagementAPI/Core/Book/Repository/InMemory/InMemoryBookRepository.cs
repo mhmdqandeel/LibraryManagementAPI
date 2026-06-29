@@ -2,7 +2,19 @@ namespace LibraryManagementAPI.Book.Repository.InMemory;
 
 public class InMemoryBookRepository : IBookRepository
 {
-    private readonly List<Models.Book> _books = [];
+    private readonly List<Models.Book> _books;
+
+    public InMemoryBookRepository()
+    {
+        _books =
+        [
+            new Models.Book("Clean Code", "Robert C. Martin"),
+            new Models.Book("The Pragmatic Programmer", "Andrew Hunt"),
+            new Models.Book("Design Patterns", "Erich Gamma"),
+            new Models.Book("Refactoring", "Martin Fowler"),
+            new Models.Book("Domain-Driven Design", "Eric Evans")
+        ];
+    }
     
     public Task<Models.Book> SaveAsync(Models.Book entity)
     {

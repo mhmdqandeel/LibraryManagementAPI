@@ -24,6 +24,7 @@ public class ListAllBooksUseCase : ISupplierUseCase<List<BookDto>>
 
         return books
             .Select(book => new BookDto(
+                book.Id,
                 book.Title,
                 book.Author,
                 book.IsAvailable
