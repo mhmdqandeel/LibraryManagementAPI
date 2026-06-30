@@ -1,6 +1,6 @@
 using LibraryManagementAPI.Shared;
 
-namespace LibraryManagementAPI.Models;
+namespace LibraryManagementAPI.Core.Borrow.Entity;
 
 public class Borrow : BaseEntity
 {

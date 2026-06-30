@@ -1,5 +1,6 @@
+using LibraryManagementAPI.Controller.Member.Request;
+using LibraryManagementAPI.Core.Member.Repository;
 using LibraryManagementAPI.Core.Member.UseCase.Dtos;
-using LibraryManagementAPI.Member.Repository;
 using LibraryManagementAPI.Shared.UseCase;
 
 namespace LibraryManagementAPI.Core.Member.UseCase;
@@ -15,7 +16,7 @@ public class CreateMemberUseCase : IFunctionalUseCase<CreateMemberRequest, Membe
 
     public async Task<MemberDto> Execute(CreateMemberRequest request)
     {
-        var member = new Models.Member(
+        var member = new Entity.Member(
             request.Name,
             request.Email,
             request.BorrowLimit);

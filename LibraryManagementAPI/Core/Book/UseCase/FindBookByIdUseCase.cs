@@ -1,8 +1,8 @@
-using LibraryManagementAPI.Book.Repository;
 using LibraryManagementAPI.Book.UseCase.Response;
+using LibraryManagementAPI.Core.Book.Repository;
 using LibraryManagementAPI.Shared.UseCase;
 
-namespace LibraryManagementAPI.Book.UseCase;
+namespace LibraryManagementAPI.Core.Book.UseCase;
 
 public class FindBookByIdUseCase : IFunctionalUseCase<Guid, BookDto>
 {

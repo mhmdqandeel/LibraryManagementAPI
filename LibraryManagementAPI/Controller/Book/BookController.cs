@@ -1,9 +1,9 @@
 using LibraryManagementAPI.Book.UseCase.Response;
-using LibraryManagementAPI.Controller.Response;
+using LibraryManagementAPI.Controller.Book.Response;
 using LibraryManagementAPI.Shared.UseCase;
 using Microsoft.AspNetCore.Mvc;
 
-namespace LibraryManagementAPI.Controller;
+namespace LibraryManagementAPI.Controller.Book;
 
 [ApiController]
 [Route("api/v1/books")]

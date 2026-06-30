@@ -1,22 +1,22 @@
-namespace LibraryManagementAPI.Book.Repository.InMemory;
+namespace LibraryManagementAPI.Core.Book.Repository.InMemory;
 
 public class InMemoryBookRepository : IBookRepository
 {
-    private readonly List<Models.Book> _books;
+    private readonly List<Core.Book.Entity.Book> _books;
 
     public InMemoryBookRepository()
     {
         _books =
         [
-            new Models.Book("Clean Code", "Robert C. Martin"),
-            new Models.Book("The Pragmatic Programmer", "Andrew Hunt"),
-            new Models.Book("Design Patterns", "Erich Gamma"),
-            new Models.Book("Refactoring", "Martin Fowler"),
-            new Models.Book("Domain-Driven Design", "Eric Evans")
+            new Core.Book.Entity.Book("Clean Code", "Robert C. Martin"),
+            new Core.Book.Entity.Book("The Pragmatic Programmer", "Andrew Hunt"),
+            new Core.Book.Entity.Book("Design Patterns", "Erich Gamma"),
+            new Core.Book.Entity.Book("Refactoring", "Martin Fowler"),
+            new Core.Book.Entity.Book("Domain-Driven Design", "Eric Evans")
         ];
     }
     
-    public Task<Models.Book> SaveAsync(Models.Book entity)
+    public Task<Core.Book.Entity.Book> SaveAsync(Core.Book.Entity.Book entity)
     {
         var existingBook = _books.FirstOrDefault(book => book.Id == entity.Id); 
 
@@ -33,13 +33,13 @@ public class InMemoryBookRepository : IBookRepository
         return Task.FromResult(entity);
     }
 
-    public Task<Models.Book?> FindAsync(Guid id)
+    public Task<Core.Book.Entity.Book?> FindAsync(Guid id)
     {
         return Task.FromResult(_books.FirstOrDefault(book => book.Id == id));
     }
 
-    public Task<IReadOnlyList<Models.Book>> FindAllAsync()
+    public Task<IReadOnlyList<Core.Book.Entity.Book>> FindAllAsync()
     {
-        return Task.FromResult<IReadOnlyList<Models.Book>>(_books);
+        return Task.FromResult<IReadOnlyList<Core.Book.Entity.Book>>(_books);
     }
 }

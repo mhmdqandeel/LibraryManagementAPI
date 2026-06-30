@@ -1,6 +1,6 @@
-using LibraryManagementAPI.Borrow.Repository.InMemory;
+using LibraryManagementAPI.Core.Borrow.Repository.InMemory;
 using LibraryManagementAPI.Shared;
-using BorrowModel = LibraryManagementAPI.Models.Borrow;
+using BorrowModel = LibraryManagementAPI.Core.Borrow.Entity.Borrow;
 
 namespace LibraryManagementAPI.Tests.Borrow.Repository.InMemory;
 

@@ -1,8 +1,8 @@
 using LibraryManagementAPI.Shared;
 
-namespace LibraryManagementAPI.Borrow.Repository;
+namespace LibraryManagementAPI.Core.Borrow.Repository;
 
-public interface IBorrowRepository : IBaseRepository<Models.Borrow>
+public interface IBorrowRepository : IBaseRepository<Core.Borrow.Entity.Borrow>
 {
     
 }

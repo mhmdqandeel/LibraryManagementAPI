@@ -1,9 +1,7 @@
+using LibraryManagementAPI.Controller.Member.Request;
+using LibraryManagementAPI.Core.Member.Repository;
 using LibraryManagementAPI.Core.Member.UseCase;
-using LibraryManagementAPI.Core.Member.UseCase.Dtos;
-using LibraryManagementAPI.Member.Repository;
-using LibraryManagementAPI.Models;
 using Moq;
-using Xunit;
 
 namespace LibraryManagementAPI.Tests.Member.UseCase;
 
@@ -27,12 +25,12 @@ public class CreateMemberUseCaseTests
             "mohammed@example.com",
             5);
         
-        Models.Member? savedMember = null;
+        Core.Member.Entity.Member? savedMember = null;
 
         _memberRepositoryMock
-            .Setup(repository => repository.SaveAsync(It.IsAny<Models.Member>()))
-            .Callback<Models.Member>(member => savedMember = member)
-            .ReturnsAsync((Models.Member member) => member);
+            .Setup(repository => repository.SaveAsync(It.IsAny<Core.Member.Entity.Member>()))
+            .Callback<Core.Member.Entity.Member>(member => savedMember = member)
+            .ReturnsAsync((Core.Member.Entity.Member member) => member);
 
         // Act
         var result = await _useCase.Execute(request);
@@ -50,7 +48,7 @@ public class CreateMemberUseCaseTests
         Assert.Equal(savedMember.BorrowLimit, result.BorrowLimit);
 
         _memberRepositoryMock.Verify(
-            repository => repository.SaveAsync(It.IsAny<Models.Member>()),
+            repository => repository.SaveAsync(It.IsAny<Core.Member.Entity.Member>()),
             Times.Once);
 
         _memberRepositoryMock.VerifyNoOtherCalls();

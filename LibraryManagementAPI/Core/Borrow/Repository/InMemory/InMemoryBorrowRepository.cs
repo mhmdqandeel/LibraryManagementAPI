@@ -1,10 +1,10 @@
-namespace LibraryManagementAPI.Borrow.Repository.InMemory;
+namespace LibraryManagementAPI.Core.Borrow.Repository.InMemory;
 
 public class InMemoryBorrowRepository : IBorrowRepository
 {
-    private readonly List<Models.Borrow> _borrows = [];
+    private readonly List<Core.Borrow.Entity.Borrow> _borrows = [];
 
-    public Task<Models.Borrow> SaveAsync(Models.Borrow entity)
+    public Task<Core.Borrow.Entity.Borrow> SaveAsync(Core.Borrow.Entity.Borrow entity)
     {
         var existingBorrow = _borrows.FirstOrDefault(borrow => borrow.Id == entity.Id);
 
@@ -21,13 +21,13 @@ public class InMemoryBorrowRepository : IBorrowRepository
         return Task.FromResult(entity);
     }
 
-    public Task<Models.Borrow?> FindAsync(Guid id)
+    public Task<Core.Borrow.Entity.Borrow?> FindAsync(Guid id)
     {
         return Task.FromResult(_borrows.FirstOrDefault(borrow => borrow.Id == id));
     }
 
-    public Task<IReadOnlyList<Models.Borrow>> FindAllAsync()
+    public Task<IReadOnlyList<Core.Borrow.Entity.Borrow>> FindAllAsync()
     {
-        return Task.FromResult<IReadOnlyList<Models.Borrow>>(_borrows);
+        return Task.FromResult<IReadOnlyList<Core.Borrow.Entity.Borrow>>(_borrows);
     }
 }

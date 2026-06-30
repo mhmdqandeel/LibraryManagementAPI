@@ -1,4 +1,4 @@
-namespace LibraryManagementAPI.Core.Member.UseCase.Dtos;
+namespace LibraryManagementAPI.Controller.Member.Request;
 
 public record CreateMemberRequest(
     string Name,

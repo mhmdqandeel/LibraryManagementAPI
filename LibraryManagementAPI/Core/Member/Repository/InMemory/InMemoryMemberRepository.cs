@@ -1,10 +1,10 @@
-namespace LibraryManagementAPI.Member.Repository.InMemory;
+namespace LibraryManagementAPI.Core.Member.Repository.InMemory;
 
 public class InMemoryMemberRepository : IMemberRepository
 {
-    private readonly List<Models.Member> _members = [];
+    private readonly List<Core.Member.Entity.Member> _members = [];
 
-    public Task<Models.Member> SaveAsync(Models.Member entity)
+    public Task<Core.Member.Entity.Member> SaveAsync(Core.Member.Entity.Member entity)
     {
         var existingMember = _members.FirstOrDefault(member => member.Id == entity.Id);
 
@@ -21,13 +21,13 @@ public class InMemoryMemberRepository : IMemberRepository
         return Task.FromResult(entity);
     }
 
-    public Task<Models.Member?> FindAsync(Guid id)
+    public Task<Core.Member.Entity.Member?> FindAsync(Guid id)
     {
         return Task.FromResult(_members.FirstOrDefault(member => member.Id == id));
     }
 
-    public Task<IReadOnlyList<Models.Member>> FindAllAsync()
+    public Task<IReadOnlyList<Core.Member.Entity.Member>> FindAllAsync()
     {
-        return Task.FromResult<IReadOnlyList<Models.Member>>(_members);
+        return Task.FromResult<IReadOnlyList<Core.Member.Entity.Member>>(_members);
     }
 }

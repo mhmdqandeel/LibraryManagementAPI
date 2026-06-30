@@ -1,8 +1,8 @@
 using LibraryManagementAPI.Shared;
 
-namespace LibraryManagementAPI.Member.Repository;
+namespace LibraryManagementAPI.Core.Member.Repository;
 
-public interface IMemberRepository : IBaseRepository<Models.Member>
+public interface IMemberRepository : IBaseRepository<Core.Member.Entity.Member>
 {
     
 }

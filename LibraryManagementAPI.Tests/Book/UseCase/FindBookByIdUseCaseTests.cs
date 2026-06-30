@@ -1,6 +1,6 @@
-using LibraryManagementAPI.Book.Repository;
 using LibraryManagementAPI.Book.UseCase;
-using LibraryManagementAPI.Models;
+using LibraryManagementAPI.Core.Book.Repository;
+using LibraryManagementAPI.Core.Book.UseCase;
 using Moq;
 using Xunit;
 
@@ -21,7 +21,7 @@ public class FindBookByIdUseCaseTests
     public async Task GivenExistingBookId_WhenExecutingUseCase_ThenReturnBookDto()
     {
         // Arrange
-        var book = new Models.Book("Clean Code", "Robert C. Martin");
+        var book = new Core.Book.Entity.Book("Clean Code", "Robert C. Martin");
 
         _bookRepositoryMock
             .Setup(repository => repository.FindAsync(book.Id))
@@ -52,7 +52,7 @@ public class FindBookByIdUseCaseTests
 
         _bookRepositoryMock
             .Setup(repository => repository.FindAsync(bookId))
-            .ReturnsAsync((Models.Book?)null);
+            .ReturnsAsync((Core.Book.Entity.Book?)null);
 
         // Act
         var exception = await Assert.ThrowsAsync<Exception>(

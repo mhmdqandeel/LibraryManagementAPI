@@ -1,6 +1,6 @@
-using LibraryManagementAPI.Member.Repository.InMemory;
+using LibraryManagementAPI.Core.Member.Repository.InMemory;
 using LibraryManagementAPI.Shared;
-using MemberModel = LibraryManagementAPI.Models.Member;
+using MemberModel = LibraryManagementAPI.Core.Member.Entity.Member;
 
 namespace LibraryManagementAPI.Tests.Member.Repository.InMemory;
 

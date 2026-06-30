@@ -1,6 +1,6 @@
 using LibraryManagementAPI.Shared;
 
-namespace LibraryManagementAPI.Models;
+namespace LibraryManagementAPI.Core.Book.Entity;
 
 public class Book : BaseEntity
 {

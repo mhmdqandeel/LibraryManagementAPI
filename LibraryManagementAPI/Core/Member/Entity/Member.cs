@@ -1,6 +1,6 @@
 using LibraryManagementAPI.Shared;
 
-namespace LibraryManagementAPI.Models;
+namespace LibraryManagementAPI.Core.Member.Entity;
 
 public class Member : BaseEntity
 {

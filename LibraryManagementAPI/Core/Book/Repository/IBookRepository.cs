@@ -1,8 +1,8 @@
 using LibraryManagementAPI.Shared;
 
-namespace LibraryManagementAPI.Book.Repository;
+namespace LibraryManagementAPI.Core.Book.Repository;
 
-public interface IBookRepository : IBaseRepository<Models.Book>
+public interface IBookRepository : IBaseRepository<Core.Book.Entity.Book>
 {
     
 }

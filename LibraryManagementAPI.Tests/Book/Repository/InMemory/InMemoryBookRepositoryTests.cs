@@ -1,7 +1,7 @@
 using FluentAssertions;
-using LibraryManagementAPI.Book.Repository.InMemory;
+using LibraryManagementAPI.Core.Book.Repository.InMemory;
 using LibraryManagementAPI.Shared;
-using BookModel = LibraryManagementAPI.Models.Book;
+using BookModel = LibraryManagementAPI.Core.Book.Entity.Book;
 
 namespace LibraryManagementAPI.Tests.Book.Repository.InMemory;
 
