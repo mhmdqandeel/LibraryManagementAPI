@@ -1,0 +1,58 @@
+using LibraryManagementAPI.Core.Member.UseCase;
+using LibraryManagementAPI.Core.Member.UseCase.Dtos;
+using LibraryManagementAPI.Member.Repository;
+using LibraryManagementAPI.Models;
+using Moq;
+using Xunit;
+
+namespace LibraryManagementAPI.Tests.Member.UseCase;
+
+public class CreateMemberUseCaseTests
+{
+    private readonly Mock<IMemberRepository> _memberRepositoryMock;
+    private readonly CreateMemberUseCase _useCase;
+
+    public CreateMemberUseCaseTests()
+    {
+        _memberRepositoryMock = new Mock<IMemberRepository>();
+        _useCase = new CreateMemberUseCase(_memberRepositoryMock.Object);
+    }
+
+    [Fact]
+    public async Task GivenValidCreateMemberRequest_WhenExecutingUseCase_ThenCreateAndReturnMemberDto()
+    {
+        // Arrange
+        var request = new CreateMemberRequest(
+            "Mohammed",
+            "mohammed@example.com",
+            5);
+        
+        Models.Member? savedMember = null;
+
+        _memberRepositoryMock
+            .Setup(repository => repository.SaveAsync(It.IsAny<Models.Member>()))
+            .Callback<Models.Member>(member => savedMember = member)
+            .ReturnsAsync((Models.Member member) => member);
+
+        // Act
+        var result = await _useCase.Execute(request);
+
+        // Assert
+        Assert.NotNull(savedMember);
+
+        Assert.Equal(request.Name, savedMember!.Name);
+        Assert.Equal(request.Email, savedMember.Email);
+        Assert.Equal(request.BorrowLimit, savedMember.BorrowLimit);
+
+        Assert.Equal(savedMember.Id, result.Id);
+        Assert.Equal(savedMember.Name, result.Name);
+        Assert.Equal(savedMember.Email, result.Email);
+        Assert.Equal(savedMember.BorrowLimit, result.BorrowLimit);
+
+        _memberRepositoryMock.Verify(
+            repository => repository.SaveAsync(It.IsAny<Models.Member>()),
+            Times.Once);
+
+        _memberRepositoryMock.VerifyNoOtherCalls();
+    }
+}

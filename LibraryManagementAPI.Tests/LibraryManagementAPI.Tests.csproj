@@ -28,8 +28,4 @@
     <ProjectReference Include="..\LibraryManagementAPI\LibraryManagementAPI.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Book\UseCase\" />
-  </ItemGroup>
-
 </Project>

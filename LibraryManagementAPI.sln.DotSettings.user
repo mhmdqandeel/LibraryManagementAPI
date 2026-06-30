@@ -5,5 +5,9 @@
     &lt;TestId&gt;xUnit::14906288-6A28-41E5-A6B2-6651DBD66440::net8.0::LibraryManagementAPI.Tests.Book.Repository.InMemory.InMemoryBookRepositoryTests&lt;/TestId&gt;
     &lt;TestId&gt;xUnit::14906288-6A28-41E5-A6B2-6651DBD66440::net8.0::LibraryManagementAPI.Tests.Borrow.Repository.InMemory.InMemoryBorrowRepositoryTests&lt;/TestId&gt;
     &lt;TestId&gt;xUnit::14906288-6A28-41E5-A6B2-6651DBD66440::net8.0::LibraryManagementAPI.Tests.Member.Repository.InMemory.InMemoryMemberRepositoryTests&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::14906288-6A28-41E5-A6B2-6651DBD66440::net8.0::LibraryManagementAPI.Tests.Book.UseCase.FindBookByIdUseCaseTests&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::14906288-6A28-41E5-A6B2-6651DBD66440::net8.0::LibraryManagementAPI.Tests.Book.UseCase.ListAllBooksUseCaseTests&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::14906288-6A28-41E5-A6B2-6651DBD66440::net8.0::LibraryManagementAPI.Tests.Member.UseCase.CreateMemberUseCaseTests.GivenValidCreateMemberRequest_WhenExecutingUseCase_ThenCreateAndReturnMemberDto&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::14906288-6A28-41E5-A6B2-6651DBD66440::net8.0::LibraryManagementAPI.Tests.Member.UseCase.CreateMemberUseCaseTests&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
